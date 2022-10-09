@@ -6,15 +6,38 @@
         xmlns:vm="clr-namespace:Project.ViewModels"
         xmlns:local="clr-namespace:Project"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Dodger-Plane"
+        Background="SkyBlue"
         Width="800"
-        Height="450">
+        Height="600">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    
+
+    <Window.InputBindings>
+        <KeyBinding Key="Left" Command="{Binding FlyLeftCommand}"></KeyBinding>
+        <KeyBinding Key="Right" Command="{Binding FlyRightCommand}"></KeyBinding>
+    </Window.InputBindings>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="{Binding Path=PlaneColumn}" Grid.Row="4"
+               Source="..\..\Data\plane.jpg"></Image>
+
+        <Image Grid.Column="{Binding Path=HelicopterColumn}" Grid.Row="{Binding Path=HelicopterRow}"
+               Source="..\..\Data\helicopter.png"></Image>
+
     </Grid>
 </Window>

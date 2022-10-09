@@ -101,8 +101,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\plane.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\helicopter.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
