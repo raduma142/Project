@@ -104,10 +104,16 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\plane.jpg" />
+    <Resource Include="Data\plane.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\helicopter.PNG" />
+    <Resource Include="Data\helicopter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\boom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\sky.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

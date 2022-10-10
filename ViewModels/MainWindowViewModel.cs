@@ -1,4 +1,7 @@
-﻿using Project.Infrastructure.Commands;
+﻿using Microsoft.Win32;
+using Project.Infrastructure.Commands;
+using Project.Services.DialogService;
+using Project.Services.DialogService.Base;
 using Project.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -16,7 +19,16 @@ namespace Project.ViewModels
         private DispatcherTimer FlyTimer = new DispatcherTimer();
         private Random Random = new Random();
 
-        private int _PlaneColumn = 1;
+        private IDialogService GameOverDialog = new FileDialogService();
+
+        private string _ImagePathPlane = "..\\..\\Data\\plane.png";
+        public string ImagePathPlane
+        {
+            get => _ImagePathPlane;
+            set => Set(ref _ImagePathPlane, value);
+        }
+
+        private int _PlaneColumn = 2;
         public int PlaneColumn
         {
             get => _PlaneColumn;
@@ -36,6 +48,13 @@ namespace Project.ViewModels
             get => _HelicopterRow;
             set => Set(ref _HelicopterRow, value);
         }
+
+        private int _Score = 0;
+        public int Score
+        {
+            get => _Score;
+            set => Set(ref _Score, value);
+        }
         #endregion
 
         #region Commands
@@ -43,11 +62,13 @@ namespace Project.ViewModels
         public ICommand FlyRightCommand { get; }
         private void FlyLeftCommandExecuted(object p)
         {
-            PlaneColumn = 0;
+            if (--PlaneColumn < 0)
+                PlaneColumn = 0;
         }
         private void FlyRightCommandExecuted(object p)
         {
-            PlaneColumn = 1;
+            if (++PlaneColumn > 4)
+                PlaneColumn = 4;
         }
         #endregion
 
@@ -67,12 +88,16 @@ namespace Project.ViewModels
             HelicopterRow++;
             if ((HelicopterRow == 4) && (PlaneColumn == HelicopterColumn))
             {
-                App.Current.Shutdown();
+                FlyTimer.Stop();
+                ImagePathPlane = "..\\..\\Data\\boom.png";
+                GameOverDialog.ShowMessage("GAME OVER!!!");
             }
             if (HelicopterRow > 4)
             {
                 HelicopterRow = 0;
-                HelicopterColumn = Random.Next(0, 2);
+                HelicopterColumn = Random.Next(0, 5);
+                FlyTimer.Interval = TimeSpan.FromMilliseconds((int) FlyTimer.Interval.Milliseconds * 0.99);
+                Score++;
             }
         }
         #endregion
